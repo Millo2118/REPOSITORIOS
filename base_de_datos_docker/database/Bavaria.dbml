@@ -1,0 +1,46 @@
+
+Table Proveedor {
+    id_proveedor integer [primary key, not null]
+    nombre varchar(100) [not null]
+    materiaprima varchar(100) [not null]
+    telefono varchar(20)
+}
+
+Table Producto {
+    id_producto integer [primary key, not null]
+    nombre varchar(100) [not null]
+    categoria varchar(50) [not null]
+    marca varchar(50) [not null]
+    presentacion varchar(50)
+    precio int [not null]
+    id_proveedor integer [not null, ref: > Proveedor.id_proveedor]
+}
+
+Table Cliente {
+    id_cliente integer [primary key, not null]
+    nombre varchar(100) [not null]
+    tipo_cliente varchar(50) [not null]
+    direccion varchar(150)
+    telefono varchar(20)
+}
+
+Table Empleado {
+    id_empleado integer [primary key, not null]
+    nombre varchar(100) [not null]
+}
+
+Table Pedido {
+    id_pedido integer [primary key, not null]
+    fecha date [not null]
+    id_cliente integer [not null, ref: > Cliente.id_cliente]
+    total int [not null]
+    id_empleado integer [not null, ref: > Empleado.id_empleado]
+}
+
+Table DetallePedido {
+    id_detalle integer [primary key, not null]
+    id_pedido integer [not null, ref: > Pedido.id_pedido]
+    id_producto integer [not null, ref: > Producto.id_producto]
+    cantidad integer [not null]
+    subtotal int [not null]
+}
