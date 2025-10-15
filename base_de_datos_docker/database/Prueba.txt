@@ -1,0 +1,74 @@
+Table Producto {
+    id_producto integer [primary key, not null]
+    nombre varchar(100) [not null]
+    categoria varchar(50) [not null]
+    marca varchar(50) [not null]
+    presentacion varchar(50)
+    precio int [not null]
+    id_proveedor integer [not null, ref: > Proveedor.id_proveedor]
+}
+
+nombre, categoria, marca, presentacion, precio
+
+("Aguila","Cerveza","Bavaria","Botella",4500)
+("Aguila Light","Cerveza","Bavaria","Lata",4700)
+("Club Colombia","Cerveza","Bavaria","Botella",5200)
+("Club Colombia Roja","Cerveza","Bavaria","Lata",5400)
+("Club Colombia Negra","Cerveza","Bavaria","Botella",5500)
+("Poker","Cerveza","Bavaria","Botella",4300)
+("Poker","Cerveza","Bavaria","Lata",4500)
+("Costeña","Cerveza","Bavaria","Botella",4200)
+("Costeña","Cerveza","Bavaria","Lata",4400)
+("Pilsen","Cerveza","Bavaria","Botella",4100)
+("Pilsen","Cerveza","Bavaria","Lata",4300)
+("Redd's","Cerveza","Bavaria","Botella",4800)
+("Redd's","Cerveza","Bavaria","Lata",5000)
+("Aguila Cero","Cerveza","Bavaria","Botella",4600)
+("Aguila Cero","Cerveza","Bavaria","Lata",4800)
+("Club Colombia Dorada","Cerveza","Bavaria","Botella",5300)
+("Club Colombia Dorada","Cerveza","Bavaria","Lata",5500)
+("Poker Radler","Cerveza","Bavaria","Botella",4700)
+("Poker Radler","Cerveza","Bavaria","Lata",4900)
+("Costeña Bacana","Cerveza","Bavaria","Botella",4400)
+("Costeña Bacana","Cerveza","Bavaria","Lata",4600)
+("Aguila Original","Cerveza","Bavaria","Botella",4500)
+("Aguila Original","Cerveza","Bavaria","Lata",4700)
+("Club Colombia Trigo","Cerveza","Bavaria","Botella",5600)
+("Club Colombia Trigo","Cerveza","Bavaria","Lata",5800)
+
+Table Cliente {
+    id_cliente integer [primary key, not null]
+    nombre varchar(100) [not null]
+    tipo_cliente varchar(50) [not null]
+    direccion varchar(150)
+    telefono varchar(20)
+}
+
+nombre, tipo_cliente, direccion, telefono
+("Supermercado Central","Mayorista","Cra 10 #23-45","3101234567")
+("Tienda La Esquina","Minorista","Calle 5 #12-34","3209876543")
+("Bar El Refugio","Bar","Av. 7 #45-67","3112345678")
+("Restaurante Sazón","Restaurante","Cra 15 #67-89","3123456789")
+("Licorera El Trago","Licorera","Calle 8 #56-78","3134567890")
+("Minimercado Express","Minorista","Cra 20 #34-56","3145678901")
+("Cafetería Aroma","Cafetería","Calle 3 #21-43","3156789012")
+("Hotel Paraíso","Hotel","Av. 9 #12-34","3167890123")
+("Panadería Dulce Pan","Panadería","Cra 18 #23-45","3178901234")
+("Tienda El Ahorro","Minorista","Calle 6 #78-90","3189012345")
+("Restaurante El Buen Sabor","Restaurante","Cra 22 #45-67","3190123456")
+("Bar La Rumba","Bar","Calle 12 #34-56","3201234567")
+("Supermercado La Oferta","Mayorista","Av. 5 #67-89","3212345678")
+("Licorera La Cava","Licorera","Cra 30 #12-34","3223456789")
+("Minimercado La Economía","Minorista","Calle 9 #45-67","3234567890")
+("Cafetería El Grano","Cafetería","Av. 11 #23-45","3245678901")
+("Hotel Sol y Luna","Hotel","Cra 25 #67-89","3256789012")
+("Panadería La Espiga","Panadería","Calle 14 #56-78","3267890123")
+("Tienda El Centro","Minorista","Av. 13 #78-90","3278901234")
+("Restaurante Sabores","Restaurante","Cra 17 #23-45","3289012345")
+("Bar El Encuentro","Bar","Calle 15 #67-89","3290123456")
+("Supermercado El Progreso","Mayorista","Cra 28 #45-67","3301234567")
+("Licorera El Barril","Licorera","Av. 16 #12-34","3312345678")
+("Minimercado Familiar","Minorista","Calle 17 #34-56","3323456789")
+("Cafetería La Taza","Cafetería","Cra 19 #56-78","3334567890")
+
+
