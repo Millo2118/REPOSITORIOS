@@ -17,70 +17,93 @@ def init_db():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
-    # Crear tabla de usuarios de ejemplo
+    # Crear tabla de clientes de ejemplo
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS usuarios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+        CREATE TABLE IF NOT EXISTS Cliente (
+            id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            edad INTEGER,
-            fecha_registro DATE DEFAULT CURRENT_DATE
+            tipo_cliente TEXT NOT NULL,
+            direccion TEXT,
+            telefono INTEGER
         )
     ''')
+
+
     
-    # Crear tabla de productos de ejemplo
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS productos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            precio REAL NOT NULL,
-            categoria TEXT,
-            stock INTEGER DEFAULT 0
-        )
-    ''')
+    # # Crear tabla de productos de ejemplo
+    # cursor.execute('''
+    #     CREATE TABLE IF NOT EXISTS productos (
+    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #         nombre TEXT NOT NULL,
+    #         precio REAL NOT NULL,
+    #         categoria TEXT,
+    #         stock INTEGER DEFAULT 0
+    #     )
+    # ''')
     
-    # Crear tabla de ventas de ejemplo
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ventas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            usuario_id INTEGER,
-            producto_id INTEGER,
-            cantidad INTEGER,
-            fecha_venta DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
-            FOREIGN KEY (producto_id) REFERENCES productos (id)
-        )
-    ''')
+    # # Crear tabla de ventas de ejemplo
+    # cursor.execute('''
+    #     CREATE TABLE IF NOT EXISTS ventas (
+    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #         usuario_id INTEGER,
+    #         producto_id INTEGER,
+    #         cantidad INTEGER,
+    #         fecha_venta DATETIME DEFAULT CURRENT_TIMESTAMP,
+    #         FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
+    #         FOREIGN KEY (producto_id) REFERENCES productos (id)
+    #     )
+    # ''')
     
     # Insertar datos de ejemplo si no existen
-    cursor.execute('SELECT COUNT(*) FROM usuarios')
+    cursor.execute('SELECT COUNT(*) FROM Cliente')
     if cursor.fetchone()[0] == 0:
         usuarios_ejemplo = [
-            ('Juan Pérez', 'juan@email.com', 28),
-            ('María García', 'maria@email.com', 34),
-            ('Carlos López', 'carlos@email.com', 22),
-            ('Ana Martín', 'ana@email.com', 31),
-            ('Luis Rodríguez', 'luis@email.com', 26)
+            ("Supermercado Central","Mayorista","Cra 10 #23-45",3101234567),
+            ("Tienda La Esquina","Minorista","Calle 5 #12-34",3209876543),
+            ("Bar El Refugio","Bar","Av. 7 #45-67",3112345678),
+            ("Restaurante Sazón","Restaurante","Cra 15 #67-89",3123456789),
+            ("Licorera El Trago","Licorera","Calle 8 #56-78",3134567890),
+            ("Minimercado Express","Minorista","Cra 20 #34-56",3145678901),
+            ("Cafetería Aroma","Cafetería","Calle 3 #21-43",3156789012),
+            ("Hotel Paraíso","Hotel","Av. 9 #12-34",3167890123),
+            ("Panadería Dulce Pan","Panadería","Cra 18 #23-45",3178901234),
+            ("Tienda El Ahorro","Minorista","Calle 6 #78-90",3189012345),
+            ("Restaurante El Buen Sabor","Restaurante","Cra 22 #45-67",3190123456),
+            ("Bar La Rumba","Bar","Calle 12 #34-56",3201234567),
+            ("Supermercado La Oferta","Mayorista","Av. 5 #67-89",3212345678),
+            ("Licorera La Cava","Licorera","Cra 30 #12-34",3223456789),
+            ("Minimercado La Economía","Minorista","Calle 9 #45-67",3234567890),
+            ("Cafetería El Grano","Cafetería","Av. 11 #23-45",3245678901),
+            ("Hotel Sol y Luna","Hotel","Cra 25 #67-89",3256789012),
+            ("Panadería La Espiga","Panadería","Calle 14 #56-78",3267890123),
+            ("Tienda El Centro","Minorista","Av. 13 #78-90",3278901234),
+            ("Restaurante Sabores","Restaurante","Cra 17 #23-45",3289012345),
+            ("Bar El Encuentro","Bar","Calle 15 #67-89",3290123456),
+            ("Supermercado El Progreso","Mayorista","Cra 28 #45-67",3301234567),
+            ("Licorera El Barril","Licorera","Av. 16 #12-34",3312345678),
+            ("Minimercado Familiar","Minorista","Calle 17 #34-56",3323456789),
+            ("Cafetería La Taza","Cafetería","Cra 19 #56-78",3334567890)
+
         ]
-        cursor.executemany('INSERT INTO usuarios (nombre, email, edad) VALUES (?, ?, ?)', usuarios_ejemplo)
+        cursor.executemany('INSERT INTO usuarios (nombre, tipo_cliente, direccion, telefono) VALUES (?, ?, ?, ?)', usuarios_ejemplo)
         
-        productos_ejemplo = [
-            ('Laptop', 999.99, 'Electrónicos', 15),
-            ('Mouse', 25.50, 'Accesorios', 50),
-            ('Teclado', 45.00, 'Accesorios', 30),
-            ('Monitor', 299.99, 'Electrónicos', 20),
-            ('Silla Gaming', 199.99, 'Muebles', 8)
-        ]
-        cursor.executemany('INSERT INTO productos (nombre, precio, categoria, stock) VALUES (?, ?, ?, ?)', productos_ejemplo)
+        # productos_ejemplo = [
+        #     ('Laptop', 999.99, 'Electrónicos', 15),
+        #     ('Mouse', 25.50, 'Accesorios', 50),
+        #     ('Teclado', 45.00, 'Accesorios', 30),
+        #     ('Monitor', 299.99, 'Electrónicos', 20),
+        #     ('Silla Gaming', 199.99, 'Muebles', 8)
+        # ]
+        # cursor.executemany('INSERT INTO productos (nombre, precio, categoria, stock) VALUES (?, ?, ?, ?)', productos_ejemplo)
         
-        ventas_ejemplo = [
-            (1, 1, 1),
-            (2, 2, 2),
-            (1, 3, 1),
-            (3, 1, 1),
-            (4, 4, 1)
-        ]
-        cursor.executemany('INSERT INTO ventas (usuario_id, producto_id, cantidad) VALUES (?, ?, ?)', ventas_ejemplo)
+        # ventas_ejemplo = [
+        #     (1, 1, 1),
+        #     (2, 2, 2),
+        #     (1, 3, 1),
+        #     (3, 1, 1),
+        #     (4, 4, 1)
+        # ]
+        # cursor.executemany('INSERT INTO ventas (usuario_id, producto_id, cantidad) VALUES (?, ?, ?)', ventas_ejemplo)
     
     conn.commit()
     conn.close()

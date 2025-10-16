@@ -19,9 +19,11 @@ Table Producto {
 Table Cliente {
     id_cliente integer [primary key, not null]
     nombre varchar(100) [not null]
+    identificacion varchar(20) [not null, unique]
     tipo_cliente varchar(50) [not null]
     direccion varchar(150)
     telefono varchar(20)
+    fecha_creacion date
 }
 
 Table Empleado {
