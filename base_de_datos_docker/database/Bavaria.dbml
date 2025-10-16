@@ -35,6 +35,11 @@ Table Pedido {
     id_cliente integer [not null, ref: > Cliente.id_cliente]
     total int [not null]
     id_empleado integer [not null, ref: > Empleado.id_empleado]
+    estado varchar(30) [not null]           
+    metodo_pago varchar(30) [not null]      
+    observaciones varchar(200)              
+    direccion_entrega varchar(150)          
+    fecha_entrega date                      
 }
 
 Table DetallePedido {
