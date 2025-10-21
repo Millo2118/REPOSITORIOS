@@ -85,7 +85,7 @@ def init_db():
             ("Cafetería La Taza","Cafetería","Cra 19 #56-78",3334567890)
 
         ]
-        cursor.executemany('INSERT INTO usuarios (nombre, tipo_cliente, direccion, telefono) VALUES (?, ?, ?, ?)', usuarios_ejemplo)
+        cursor.executemany('INSERT INTO cliente (nombre, tipo_cliente, direccion, telefono) VALUES (?, ?, ?, ?)', usuarios_ejemplo)
         
         # productos_ejemplo = [
         #     ('Laptop', 999.99, 'Electrónicos', 15),
