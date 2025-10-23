@@ -281,30 +281,56 @@ def get_schema():
 
 @app.route('/examples')
 def get_examples():
-    """Endpoint que retorna consultas SQL de ejemplo"""
+    """Endpoint que retorna consultas SQL de ejemplo (renombrar columnas, filtrar y más)"""
     examples = [
+        # Renombrar columna en la tabla (SQLite >= 3.25.0)
         {
-            "title": "Listar todos los clientes",
-            "query": "SELECT * FROM Cliente;"
+            "title": "Renombrar columna (tabla)",
+            "query": "ALTER TABLE Pedido RENAME COLUMN direccion TO direccion_entrega;"
+        },
+
+        # Renombrar columna solo en el resultado (alias)
+        {
+            "title": "Alias: renombrar columna en SELECT",
+            "query": "SELECT id_pedido AS pedido, fecha AS fecha_pedido, direccion AS direccion_entrega, total FROM Pedido;"
+        },
+
+        # Ordenar resultados (ORDER BY) - ejemplos
+        {
+            "title": "Ordenar por precio ascendente",
+            "query": "SELECT id_producto, nombre, precio FROM Producto ORDER BY precio ASC;"
         },
         {
-            "title": "Productos con precio mayor a 1000",
-            "query": "SELECT * FROM Producto WHERE precio > 1000;"
+            "title": "Ordenar por precio desc y nombre asc",
+            "query": "SELECT id_producto, nombre, precio FROM Producto ORDER BY precio DESC, nombre ASC;"
+        },
+
+        # Filtrar (WHERE) - ejemplos
+        {
+            "title": "Filtrar pedidos por estado y rango de total",
+            "query": "SELECT id_pedido, fecha, total, estado FROM Pedido WHERE estado = 'Pendiente' AND total BETWEEN 50000 AND 200000;"
         },
         {
-            "title": "Contar pedidos por estado",
-            "query": "SELECT estado, COUNT(*) as cantidad FROM Pedido GROUP BY estado ORDER BY cantidad DESC;"
+            "title": "Filtrar clientes por tipo y nombre parcial (LIKE)",
+            "query": "SELECT id_cliente, nombre, telefono FROM Cliente WHERE tipo_cliente IN ('Mayorista','Licorera') AND nombre LIKE '%Supermercado%';"
         },
+
+        # NULL checks y actualización
         {
-            "title": "Pedidos recientes",
-            "query": """SELECT id_pedido, fecha, total, estado, direccion, fecha_entrega
-                        FROM Pedido
-                        ORDER BY fecha DESC
-                        LIMIT 20;"""
+            "title": "Buscar pedidos sin fecha_entrega y actualizar",
+            "query": "SELECT id_pedido, fecha, fecha_entrega FROM Pedido WHERE fecha_entrega IS NULL;\n-- Para rellenar: UPDATE Pedido SET fecha_entrega = fecha WHERE fecha_entrega IS NULL;"
         },
+
+        # Aliases en WHERE usando CTE
         {
-            "title": "Insertar nuevo cliente (ejemplo)",
-            "query": "INSERT INTO Cliente (nombre, tipo_cliente, direccion, telefono) VALUES ('Nuevo Cliente','Minorista','Direccion ejemplo','3000000000');"
+            "title": "Usar alias en WHERE (CTE)",
+            "query": "WITH cte AS (SELECT id_pedido, total AS total_pesos FROM Pedido) SELECT * FROM cte WHERE total_pesos > 100000;"
+        },
+
+        # PRAGMA para ver esquema/columnas
+        {
+            "title": "Ver columnas de una tabla",
+            "query": "PRAGMA table_info(Pedido);"
         }
     ]
     return jsonify({"examples": examples})
