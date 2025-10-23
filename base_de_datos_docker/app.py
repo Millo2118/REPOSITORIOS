@@ -331,7 +331,38 @@ def get_examples():
         {
             "title": "Ver columnas de una tabla",
             "query": "PRAGMA table_info(Pedido);"
+        },
+
+        # --- nuevos ejemplos añadidos ---
+        {
+            "title": "Renombrar nombre->nm, filtrar Bavaria y ordenar por presentacion",
+            "query": "SELECT id_producto, nombre AS nm, categoria, marca, presentacion, precio FROM Producto WHERE marca = 'Bavaria' ORDER BY presentacion ASC;"
+        },
+        {
+            "title": "Listar tablas en la base de datos",
+            "query": "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
+        },
+        {
+            "title": "Ver columnas de Producto",
+            "query": "PRAGMA table_info(Producto);"
+        },
+        {
+            "title": "Filtrar Producto por marca (parametrizado)",
+            "query": "SELECT id_producto, nombre, categoria, presentacion, precio FROM Producto WHERE marca = ? ORDER BY presentacion ASC; -- parámetro: 'Bavaria'"
+        },
+        {
+            "title": "Buscar productos por nombre (LIKE, parametrizado)",
+            "query": "SELECT id_producto, nombre, precio FROM Producto WHERE nombre LIKE ? ORDER BY precio ASC; -- parámetro: '%Aguila%'"
+        },
+        {
+            "title": "Filtrar por rango de precio (parametrizado)",
+            "query": "SELECT id_producto, nombre, precio FROM Producto WHERE precio BETWEEN ? AND ? ORDER BY precio ASC; -- parámetros: min, max"
+        },
+        {
+            "title": "Consulta genérica (ejemplo) para filtrar cualquier tabla por columna",
+            "query": "SELECT * FROM {table} WHERE {column} = ? LIMIT 100; -- sustituir {table} y {column} y pasar el parámetro"
         }
+        # --- fin nuevos ejemplos ---
     ]
     return jsonify({"examples": examples})
 
